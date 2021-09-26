@@ -115,8 +115,8 @@ public class KerberosTokenDecoderImpl implements KerberosTokenDecoder {
             // I didn't find a better way how to parse this Kerberos Message...
             org.bouncycastle.asn1.ASN1InputStream asn1InputStream =
                     new org.bouncycastle.asn1.ASN1InputStream(new ByteArrayInputStream(ticket));
-            org.bouncycastle.asn1.DERApplicationSpecific derToken =
-                    (org.bouncycastle.asn1.DERApplicationSpecific) asn1InputStream.readObject();
+            org.bouncycastle.asn1.ASN1ApplicationSpecific derToken =
+                    (org.bouncycastle.asn1.ASN1ApplicationSpecific) asn1InputStream.readObject();
             if (derToken == null || !derToken.isConstructed()) {
                 asn1InputStream.close();
                 throw new WSSecurityException("invalid kerberos token");
@@ -124,8 +124,8 @@ public class KerberosTokenDecoderImpl implements KerberosTokenDecoder {
             asn1InputStream.close();
 
             asn1InputStream = new org.bouncycastle.asn1.ASN1InputStream(new ByteArrayInputStream(derToken.getContents()));
-            org.bouncycastle.asn1.DERObjectIdentifier kerberosOid =
-                    (org.bouncycastle.asn1.DERObjectIdentifier) asn1InputStream.readObject();
+            org.bouncycastle.asn1.ASN1ObjectIdentifier kerberosOid =
+                    (org.bouncycastle.asn1.ASN1ObjectIdentifier) asn1InputStream.readObject();
             if (!kerberosOid.getId().equals(KERBEROS_OID)) {
                 asn1InputStream.close();
                 throw new WSSecurityException("invalid kerberos token");

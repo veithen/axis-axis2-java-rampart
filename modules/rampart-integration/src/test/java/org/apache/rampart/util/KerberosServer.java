@@ -91,7 +91,7 @@ public final class KerberosServer extends ExternalResource {
             }
         }
         if (provider != null) {
-            Security.addProvider(provider);
+//            Security.addProvider(provider);
         }
         
         workDir = Files.createTempDirectory("server-work").toFile();
@@ -199,7 +199,7 @@ public final class KerberosServer extends ExternalResource {
             
             if (provider != null) {
                 //restore BC position
-                Security.removeProvider("BC");
+//                Security.removeProvider("BC");
                 Security.insertProviderAt(provider, providerPos);
             }
         }
